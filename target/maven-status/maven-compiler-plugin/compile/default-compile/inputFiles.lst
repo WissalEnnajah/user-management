@@ -1,0 +1,12 @@
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\dto\LoginRequest.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\security\SecurityConfig.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\app\AuthServiceApplication.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\entity\User.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\security\JwtAuthFilter.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\controller\AuthController.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\dto\RegisterRequest.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\repository\UserRepository.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\entity\Role.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\repository\RoleRepository.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\security\JwtService.java
+C:\Users\dell\eclipse-workspace\auth-service\src\main\java\service\UserService.java

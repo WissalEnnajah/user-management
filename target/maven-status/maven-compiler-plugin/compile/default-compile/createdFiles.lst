@@ -1,0 +1,12 @@
+service\UserService.class
+security\JwtService.class
+repository\RoleRepository.class
+entity\User.class
+dto\RegisterRequest.class
+repository\UserRepository.class
+dto\LoginRequest.class
+security\SecurityConfig.class
+app\AuthServiceApplication.class
+controller\AuthController.class
+entity\Role.class
+security\JwtAuthFilter.class
