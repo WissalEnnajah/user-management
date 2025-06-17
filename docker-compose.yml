@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # Service MySQL principal
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: userdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: Ennajah@2003
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql  # Script d'initialisation
+
+  # Service MongoDB pour les logs
+  mongo-db:
+    image: mongo:5.0
+    container_name: mongo-container
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  user-service:
+    build:
+      context: ./user-service
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/userdb
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: Ennajah@2003
+
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: auth-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/authdb  # Base séparée
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: Ennajah@2003
+      JWT_SECRET: aNjCTP1Zkfu6Wf+RgYnHvt9dtPljMBICNl4ontT/TSxFLRd+sOlR+lvHh9s86PF+
+
+  log-service:
+    build:
+      context: ./log-service
+    container_name: log-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      mongo-db:
+        condition: service_started
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://admin:admin123@mongo-db:27017/log?authSource=admin
+      SPRING_SECURITY_USER_NAME: admin
+      SPRING_SECURITY_USER_PASSWORD: admin123
+
+volumes:
+  mysql_data:
+  mongo_data:
